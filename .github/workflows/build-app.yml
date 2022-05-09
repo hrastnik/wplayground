@@ -5,9 +5,15 @@ on:
     branches:
       - main
       - development
+  pull_request:
+    branches:
+      - deploy
+    types: [closed]
 
 jobs:
   build-android:
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
