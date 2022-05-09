@@ -5,19 +5,20 @@ on:
     branches:
       - main
       - development
-  pull_request:
-    branches:
-      - main
-      - development
-    types: [closed]
 
 jobs:
   build-android:
-    if: github.event_name == 'push' || github.event.pull_request.merged == true
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Copy release
+        if: github.ref_name == 'main'
+        run: echo 'Copy release'
+
+      - name: Copy dev
+        if: github.ref_name == 'development'
+        run: echo 'Copy dev'
 
       - name: Install node dependencies
         run: echo '${{ toJSON(github) }}'
