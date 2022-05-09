@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - develop
 
 jobs:
   build-android:
@@ -12,4 +13,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install node dependencies
-        run: node index.js "${{ toJSON(github) }}"
+        run: cat << EOF ${{ toJSON(github) }} EOF
